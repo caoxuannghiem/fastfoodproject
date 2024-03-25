@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.applicationfastfood.Adapter.FoodListAdapter;
 import com.example.applicationfastfood.Domain.Foods;
 import com.example.applicationfastfood.R;
 import com.example.applicationfastfood.databinding.ActivityListFoodsBinding;
@@ -39,9 +40,14 @@ private String searchText;
         setContentView(binding.getRoot());
         getIntentExtra();
         initList();
+        setVariable();
 
     }
 
+    private void setVariable()
+    {
+
+    }
 
     private void initList()
     {
@@ -70,8 +76,11 @@ private String searchText;
                     if(list.size()>0)
                     {
                         binding.foodListView.setLayoutManager(new GridLayoutManager(ListFoodsActivity.this,2));
-                        adapterListFood=new
+                        adapterListFood=new FoodListAdapter(list);
+                        binding.foodListView.setAdapter(adapterListFood);
                     }
+                    binding.progressBar.setVisibility(View.GONE);
+
                 }
             }
 
@@ -84,7 +93,7 @@ private String searchText;
     private void  getIntentExtra()
     {
         categoryId = getIntent().getIntExtra("CategoryId",0);
-        categoryName=getIntent().getStringExtra("Categoty");
+        categoryName=getIntent().getStringExtra("CategotyName");
         searchText=getIntent().getStringExtra("text");
         isSearch=getIntent().getBooleanExtra("isSearch",false);
 

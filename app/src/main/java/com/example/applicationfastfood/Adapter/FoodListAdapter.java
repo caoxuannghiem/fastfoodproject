@@ -42,7 +42,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
         holder.titleTxt.setText(items.get(position).getTitle());
         holder.timeTxt.setText(items.get(position).getTimeValue()+"min");
         holder.priceTxt.setText("$"+items.get(position).getPrice());
-        holder.rateTxt.setText(""+items.get(position).getPrice());
+        holder.rateTxt.setText(""+items.get(position).getPrice());;
 
         Glide.with(context)
                 .load(items.get(position).getImagePath())
@@ -51,14 +51,13 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
 
 
     }
-
     @Override
     public int getItemCount() {
         return 0;
     }
 
     public class viewholder extends RecyclerView.ViewHolder{
-        TextView titleTxt, priceTxt, starTxt, timeTxt;
+        TextView titleTxt, priceTxt, starTxt, timeTxt, rateTxt;
         ImageView pic;
         public viewholder (@NonNull View itemView)
         {
@@ -67,6 +66,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
             priceTxt=itemView.findViewById(R.id.priceTxt);
             starTxt=itemView.findViewById(R.id.starTxt);
             timeTxt=itemView.findViewById(R.id.timeTxt);
+            rateTxt=itemView.findViewById(R.id.rateTxt);
             pic=itemView.findViewById(R.id.pic);
         }
     }

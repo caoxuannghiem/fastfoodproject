@@ -1,15 +1,11 @@
 package com.example.applicationfastfood.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,8 +18,9 @@ import com.example.applicationfastfood.Domain.Location;
 import com.example.applicationfastfood.Domain.Price;
 import com.example.applicationfastfood.Domain.Time;
 import com.example.applicationfastfood.R;
-import com.example.applicationfastfood.databinding.ActivityIntroBinding;
 import com.example.applicationfastfood.databinding.ActivityMainBinding;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,8 +44,33 @@ public class MainActivity extends BaseActivity {
         initPrice();
         initCategory();
         initBestFood();
+        setVariable();
 
 
+    }
+
+    private void setVariable()
+    {
+        binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            }
+        });
+        binding.searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text=binding.searchEdt.getText().toString();
+                if(!text.isEmpty())
+                {
+                    Intent intent = new Intent(MainActivity.this,ListFoodsActivity.class);
+                    intent.putExtra("text",text);
+                    intent.putExtra("isSearch",true);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void initBestFood()
@@ -65,10 +87,10 @@ public class MainActivity extends BaseActivity {
                     for(DataSnapshot issue: snapshot.getChildren()){
                         list.add(issue.getValue(Foods.class));
                     }
-                    if(list.size()>0)
+                    if(!list.isEmpty())
                     {
                         binding.categoryView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,false));
-                        RecyclerView.Adapter adapter=new BestFoodAdapter(list);
+                        RecyclerView.Adapter<BestFoodAdapter.viewholder> adapter=new BestFoodAdapter(list);
                         binding.categoryView.setAdapter(adapter);
                     }
                     binding.progressBarCategory.setVisibility(View.GONE);
