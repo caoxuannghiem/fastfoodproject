@@ -19,7 +19,6 @@ import com.example.applicationfastfood.Domain.Price;
 import com.example.applicationfastfood.Domain.Time;
 import com.example.applicationfastfood.R;
 import com.example.applicationfastfood.databinding.ActivityMainBinding;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -89,9 +88,9 @@ public class MainActivity extends BaseActivity {
                     }
                     if(!list.isEmpty())
                     {
-                        binding.categoryView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,false));
+                        binding.bestFoodView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,false));
                         RecyclerView.Adapter<BestFoodAdapter.viewholder> adapter=new BestFoodAdapter(list);
-                        binding.categoryView.setAdapter(adapter);
+                        binding.bestFoodView.setAdapter(adapter);
                     }
                     binding.progressBarCategory.setVisibility(View.GONE);
                 }
@@ -122,7 +121,7 @@ public class MainActivity extends BaseActivity {
                     if(list.size()>0)
                     {
                         binding.categoryView.setLayoutManager(new GridLayoutManager(MainActivity.this,4));
-                        RecyclerView.Adapter adapter=new CategoryAdapter(list);
+                        RecyclerView.Adapter<CategoryAdapter.viewholder> adapter=new CategoryAdapter(list);
                         binding.categoryView.setAdapter(adapter);
                     }
                     binding.progressBarCategory.setVisibility(View.GONE);
