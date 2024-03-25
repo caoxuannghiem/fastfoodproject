@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.applicationfastfood.Domain.Foods;
 import com.example.applicationfastfood.R;
 
@@ -39,6 +42,12 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
         holder.titleTxt.setText(items.get(position).getTitle());
         holder.timeTxt.setText(items.get(position).getTimeValue()+"min");
         holder.priceTxt.setText("$"+items.get(position).getPrice());
+        holder.rateTxt.setText(""+items.get(position).getPrice());
+
+        Glide.with(context)
+                .load(items.get(position).getImagePath())
+                .transform(new CenterCrop(), new RoundedCorners(30))
+                .into(holder.pic);
 
 
     }
