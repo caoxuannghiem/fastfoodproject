@@ -8,8 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.applicationfastfood.Adapter.CartAdapter;
+import com.example.applicationfastfood.Helper.ChangeNumberItemsListener;
 import com.example.applicationfastfood.Helper.ManagmentCart;
 import com.example.applicationfastfood.R;
 import com.example.applicationfastfood.databinding.ActivityCartBinding;
@@ -30,6 +33,32 @@ private double tax;
 
         setVariable();
         calculateCart();
+        initList();
+
+    }
+
+    private void initList()
+    {
+        if(managmentCart.getListCart().isEmpty())
+        {
+            binding.emptyTxt.setVisibility(View.VISIBLE);
+            binding.scrollViewCart.setVisibility(View.GONE);
+        }
+        else
+        {
+            binding.emptyTxt.setVisibility(View.GONE);
+            binding.scrollViewCart.setVisibility(View.GONE);
+        }
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        binding.cartView.setLayoutManager(linearLayoutManager);
+        adapter=new CartAdapter(managmentCart.getListCart(), this, new ChangeNumberItemsListener() {
+            @Override
+            public void change() {
+                calculateCart();
+            }
+        });
+        binding.cartView.setAdapter(adapter);
 
     }
 
@@ -43,7 +72,10 @@ private double tax;
         double total=Math.round((managmentCart.getTotalFee()+tax+delivery)*100)/100;
         double itemTotal=Math.round(managmentCart.getTotalFee()*100)/100;
 
-        binding
+        binding.totalFeeTxt.setText("$"+itemTotal);
+        binding.taxTxt.setText("$"+tax);
+        binding.deliveryTxt.setText("$"+delivery);
+        binding.totalTxt.setText("$"+total);
     }
 
     private void setVariable()

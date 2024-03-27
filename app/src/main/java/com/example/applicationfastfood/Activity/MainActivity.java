@@ -75,6 +75,13 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
             }
         });
+
+        binding.cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
+            }
+        });
         binding.searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

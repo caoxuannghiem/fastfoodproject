@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ApplicationFastFood"
         tools:targetApi="31">
         <activity
+            android:name=".Adapter.CartAdapter"
+            android:exported="false" />
+        <activity
             android:name=".Activity.CartActivity"
             android:exported="false" />
         <activity
