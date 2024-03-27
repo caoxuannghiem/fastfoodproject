@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.applicationfastfood.Domain.Foods;
+import com.example.applicationfastfood.Helper.ManagmentCart;
 import com.example.applicationfastfood.R;
 import com.example.applicationfastfood.databinding.ActivityDetailBinding;
 
@@ -18,6 +19,7 @@ public class DetailActivity extends AppCompatActivity {
     ActivityDetailBinding binding;
     private Foods object;
     private int num=1;
+    private ManagmentCart managmentCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,8 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        managmentCart= new ManagmentCart(this);
         Glide.with(DetailActivity.this)
                 .load(object.getImagePath())
                 .into(binding.pic);
@@ -44,6 +48,34 @@ public class DetailActivity extends AppCompatActivity {
         binding.descriptionTxt.setText(object.getStar()+"Rating");
         binding.ratingBar.setRating((float) object.getStar());
         binding.totalTxt.setText((num*object.getPrice()+"$"));
+
+        binding.plusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num=num+1;
+                binding.numTxt.setText(num+"");
+                binding.totalTxt.setText("$"+(num*object.getPrice()));
+            }
+        });
+        binding.minusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(num>1)
+                {
+                    num=num+1;
+                    binding.numTxt.setText(num+"");
+                    binding.totalTxt.setText("$"+(num*object.getPrice()));
+                }
+            }
+        });
+
+        binding.addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                object.setNumberInCart(num);
+                managmentCart.insertFood(object);
+            }
+        });
     }
     private void getIntentExtra()
     {
