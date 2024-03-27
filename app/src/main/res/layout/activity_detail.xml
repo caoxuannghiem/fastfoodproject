@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/pic"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:scaleType="centerCrop"
@@ -38,9 +38,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintBottom_toBottomOf="@+id/pic"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/pic"
                     app:srcCompat="@drawable/favorite_white" />
 
                 <ImageView
@@ -74,10 +74,9 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/priceTxt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
+                    android:layout_height="match_parent"
                     android:text="$40"
                     android:textColor="@color/red"
                     android:textSize="20sp"

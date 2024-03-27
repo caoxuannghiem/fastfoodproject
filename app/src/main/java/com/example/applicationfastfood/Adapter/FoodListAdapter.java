@@ -1,6 +1,7 @@
 package com.example.applicationfastfood.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.applicationfastfood.Activity.DetailActivity;
 import com.example.applicationfastfood.Domain.Foods;
 import com.example.applicationfastfood.R;
 
@@ -48,6 +50,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
                 .load(items.get(position).getImagePath())
                 .transform(new CenterCrop(), new RoundedCorners(30))
                 .into(holder.pic);
+
 
 
     }

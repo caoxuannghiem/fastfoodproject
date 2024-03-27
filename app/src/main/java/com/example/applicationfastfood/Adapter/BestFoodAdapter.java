@@ -1,6 +1,8 @@
 package com.example.applicationfastfood.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.applicationfastfood.Activity.BaseActivity;
+import com.example.applicationfastfood.Activity.DetailActivity;
 import com.example.applicationfastfood.Domain.Foods;
 import com.example.applicationfastfood.R;
 
@@ -35,7 +39,7 @@ public class BestFoodAdapter extends RecyclerView.Adapter<BestFoodAdapter.viewho
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BestFoodAdapter.viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull BestFoodAdapter.viewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.titleTxt.setText(items.get(position).getTitle());
         holder.priceTxt.setText("$"+items.get(position).getPrice());
         holder.timeTxt.setText(items.get(position).getTimeValue()+"min");
@@ -46,9 +50,16 @@ public class BestFoodAdapter extends RecyclerView.Adapter<BestFoodAdapter.viewho
                 .load(items.get(position).getImagePath())
                 .transform(new CenterCrop(), new RoundedCorners(30))
                 .into(holder.pic);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("object", items.get(position));
+                context.startActivity(intent);
+            }
 
 
-
+        });
     }
 
     @Override
